@@ -1,0 +1,17 @@
+Python -
+
+extended unpacking technique -> f, *d , e = [1,2,3,4] here f is 1, d is [2,3] and e is 4
+
+LEGB -> order of priority for variable access -> local,enclosed,global,built-in
+
+
+List Comprehensions -
+
+you just write a complete loop in a single line y = [x*x for x in range(10) if x%2==0]
+
+map and filter -
+ these are also comprehensions where they return iterators when used with lambda,
+ lambda creates a function of its own with a condition and a source
+ list(map(int,input().split())) -> the source is input().split(), the condition here is int type and you map them in an iterator and then turn it into a complete list for use.
+
+eg 2 : x1 = [1,2,3,4,5,6,7,8,9,10] res = map(lambda x:x%2==0, x1)
