@@ -1,0 +1,27 @@
+Git -
+
+- Global Version Control System
+- Just a really big undo tree (can go back or forward from a specific tree node)
+- always hold history of pushes, who pushed what and etc
+
+GitHub -
+
+- a cloud based IDE that holds all the repository from the local system that are pushed
+- Git is a system used to create the undo tree and github is used to hold the system in cloud to clone it in multiple devices and work simultanously on all the systems that has the repo
+
+GitLab -
+
+- Online IDE thats mainly used for hosting cuz of its Devops features
+
+Azure Devops - CI/CD
+AWS code commit - manage repo in AWS
+
+
+GIT COMMANDS
+
+
+git config --global user.name "__name__"
+git config --gloabl user.email "__email__"
+
+
+git init -> initialize a git repo
