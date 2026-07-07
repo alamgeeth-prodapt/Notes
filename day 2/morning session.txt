@@ -25,3 +25,15 @@ git config --gloabl user.email "__email__"
 
 
 git init -> initialize a git repo
+
+git add -> command that is used to add the files in a particular folder to the staging area
+
+git commit -m "__message__" -> command that is used to commit the changes that are in the staging area
+
+git branch -M main -> branch name is main cuz i wanted it to be simple, it can be anything, you just create a new branch
+
+git checkout __branch_name__ -> change to the specified branch
+
+git remote add origin "__repo_url__"--> adds a repo that you want to push the changes into, "remote add" creates a entrypoint and the name is "origin"
+
+git push -u origin main -> now you are pushing changes into the origin remote repo's main branch
