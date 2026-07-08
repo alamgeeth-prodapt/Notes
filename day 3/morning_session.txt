@@ -1,0 +1,106 @@
+Python -
+
+numbers = [10,20,30,40,50]
+
+functools (reduce() function)
+
+- you gotta import reduce from functools (from functools import reduce)
+- eg : res = reduce(lambda x,y:x+y, numbers)
+- just a function, sum,max are generally better
+- maybe better for complex values
+
+---------------------------------------------
+
+enumerate
+
+- used in loops, better if you want both value and the index of the current position
+- eg : for ind,val in enumerate (numbers)
+- ind takes indexes
+- val takes actual values
+
+- for i in enumerate(numbers):
+- i is returned as tuple with i[0] as index and i[1] as value
+---------------------------------------------
+
+iterators and generators
+
+- iter is a function that creates kind of a pointer that points to the memory location of the data.
+- next() is a function that is used with iter to move the iter to the next position
+- eg : it = iter(numbers)
+       print(next(it,"end"))
+- prints 10 from the list
+- when reached the end of the list it takes the string "end"
+
+
+---------------------------------
+One Hot Encoding
+
+- used in ML to classify the items based on a particular category
+- eg : fruits = ["apple","orange","apple"]
+       category = ["apple","orange"]
+       - write a loop to create a new list where in each index it compares to the category and returns a value
+
+---------------------------------
+Tuple
+
+- an immutable list, more important than list in AI based dev
+- single element in a tuple is always taken with a comma in it
+- eg : (1,)
+
+- only extendable using the * operator eg : t = (10,20,30), t*3
+- n1,n2,n3 = t --> unpacking
+- e1,(e21,e22),e3 = ("john",(25,"dev"),7500) --> nested unpacking
+
+    data = ("ai", ("num", "pan"))
+
+    course, (_, lib2) = data
+
+    print(lib2)
+
+_ -> blank identifier, similar to what we use in golang, to just ignore the value in that place
+
+- Named Tuples --> a function present in the collections package
+- Student = namedtuple("Student",["name","id","marks"])
+- s = Student("GTG","013","100")
+- print(s.name,s.id,s.marks)
+- print(s._asdict())
+- s1 = s._replace(id=11)
+- print(s1.id)
+- this _asdict and _replace are present for this functions
+---------------------------------
+sets
+
+- set is an unordered collection of items, meaning, you cant index the values in the set
+- set() is used to create a set or you can do it with {}
+- eg : s1 = {1,2,3,4,5,6,"yo","gtg"}
+- some functions -> add(),remove(),union() or |,intersection() or &,difference() or -, symmetric_difference() or ^, isdisjoint()
+
+-frozenset(), a set is frozen then no manipulation can be done to that set-> syntax : A = frozenset({1,2,3})
+
+combinations in sets -> itertools
+
+-from itertools import combinations
+
+combs = {1,2,3}
+
+for i in range(len(combs)+1):
+    a = itertools.combinations(combs,i)
+    print(a)
+
+a = {1,2,3,4,5}
+b = {3,4,5,6}
+c = {*a,*b}
+
+this puts all the elements from a and b in c and turns it into a set
+
+-enumerate can also be used in this
+
+s3 = {1,2,3,"k","l"}
+print(list(enumerate(s3)
+
+zipping -> s1 = {"a","b","c"}
+           s2 = {10,20,30}
+           print(list(zip(s1,s2)))
+
+           #output -> [('c',10),('b',20),('a',30)]
+-----------------------------------------
