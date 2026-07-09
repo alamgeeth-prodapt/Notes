@@ -57,7 +57,7 @@ Tuple
 
     print(lib2)
 
-_ -> blank identifier, similar to what we use in golang, to just ignore the value in that place
+_ -> blank identifier, similar to what we use in golang, to just ignore the value in that place but in python this is also a valid variable name.
 
 - Named Tuples --> a function present in the collections package
 - Student = namedtuple("Student",["name","id","marks"])

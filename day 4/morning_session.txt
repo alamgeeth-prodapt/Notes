@@ -1,0 +1,85 @@
+Python
+
+Looping -
+
+    for loops -
+        syntax -> for _variable_ in range/some_data/enumerate/zip
+
+        eg: names = ["alice","bob","tom"]
+            marks = [80,90,95]
+
+            for n,m in zip(names,marks):
+                print(n,m)
+
+            #output -> alice 80
+                       bob 90
+                       tom 95
+
+        zip_longest -
+            this is another function that is used with the for loop like range and enum.
+
+            its in itertools
+
+            eg :
+                from itertools import zip_longest
+                names = ["alice","bob","tom"]
+                marks = [80,90]
+                for x,y in zip_longest(names,marks,fillvalue="YOYO"):
+                    print(x,y)
+
+                #output:
+                    alice 80
+                    bob 90
+                    tom YOYO
+
+-----------------------------------------
+
+any() and all() in python
+
+any(list_variable) returns true if the list has atleast one non_zero elem
+
+all(list_variable) returns true only if all the elements in the list are non_zero
+
+-----------------------------------------
+
+count() from itertools
+
+this is an infinite loop that stops at a particular condition if it is reached
+
+eg : from itertools import count
+     for i in count(5):
+     print(i)
+     if i==10:
+        break
+
+    - the count starts from 5 and goes till 9
+
+-----------------------------------------
+
+cycle and islice
+
+-cycle(__Var_name__) is a func that you use to traverse the same data again and again
+-islice(cycle(__var_name__),__count_val__) is a func that you use with cycle and add a value called count to tell python loop until this many lines are printed.
+
+eg : for x in islice(cycle("abc"),10)
+----------------------------------------
+
+match in python
+
+-very similar to switch case,
+
+eg : age = 20
+     match age:
+        case x if x>18:
+            print("adult)
+        case _:
+            print("invalid")
+
+- you dont call anything, when python reads match, it checks the variables and goes to the case.
+
+eg: point(0,5)
+    match point:
+        case (0,y):
+            print("y-axis",y)
+        case _:
+            print("invalid")
