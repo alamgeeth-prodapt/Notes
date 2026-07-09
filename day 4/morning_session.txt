@@ -83,3 +83,63 @@ eg: point(0,5)
             print("y-axis",y)
         case _:
             print("invalid")
+
+--------------------------------------
+
+functions in python
+
+- use def keyword when creating the function
+- there is no overloading in python meaning you cant write functions with same name and different parameters
+- multiple returns are possible at once
+
+eg :
+def cals (a,b):
+    return a+b,a-b,a*b
+
+print(cals(10,10))
+
+Advancements of Parameters
+
+positional arguments vs keyword arguments
+
+def posi(a,b):
+    print(a+b)
+posi(b=70,a=67)
+
+the above given call is called keywork arguement calling
+
+when / is used in a function the parameters required in the function becomes positional or keyword argument
+eg : def posi(a,b,/,c,d)
+when * is used in a function the parameters required in the function becomes only keyword argument.
+eg : def posi(a,b,*,c,d)
+
+
+**kwargs -> this is a way to get key-value pairs in the arguments
+
+def info(a,**kwargs):
+    print(kwargs)
+
+info(1,name="karthika",age=22,city="chennai")
+-----------------------------------
+
+multiple arguements for a single parameter
+
+def use(*a):
+    print(a)
+
+this "a" in the parameter takes any number of argument and turns it into a tuple.
+
+------------------------------------
+
+lambda function-->
+
+anonymous function, this is called an anonymous function because you dont need significant space for this,
+
+just point a varible to the function and call the variable
+
+add = lambda x,y : x+y
+print(add(10,10))
+
+num = [1,2,3,4,5,6,7,8,9,10]
+res = list(filter(lambda x:x%2==0,num)
+print(res)

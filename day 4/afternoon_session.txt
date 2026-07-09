@@ -1,0 +1,80 @@
+Python -
+
+def outer():
+    def inner():
+        print("i am in")
+    return inner
+
+x = outer()
+x()
+
+-this actually works and x calls the inner function and gives the output "i am in"
+
+def outer(x):
+    def inner(x):
+        print(x)
+
+    return inner
+
+hello = outer("hello")
+bye = outer("byee")
+hello()
+bye()
+
+-even though we didnt pass any arguments when hello() or bye() is called, it prints hello and bye from the outer("hello") calls, this is called closure rememberance property.
+-hello() is the call of outer("hello").
+
+---------------------------------------------------------
+
+generators in python
+
+- generators are very similar to iterators, its going to generate one return at a time.
+- the returns are given as yield
+- generators always work sequentially and doesnt forget where it stopped
+
+def funco():
+    for i in range(1,10000):
+        yield i
+
+g = funco()
+print(next(g))
+#output: prints 1
+
+
+--------------------------------------------
+
+decorators in python
+
+# def decor(func):
+#     def wrapper():
+#         print("before")
+#         func()
+#         print("after")
+#     return wrapper
+
+# @decor
+# def hi():
+#     print("hi")
+
+# hi()
+
+
+import time
+
+def timer(func):
+
+    def wrapper():
+        start = time.time()
+        func()
+        end = time.time()
+
+        print(end-start)
+
+    return wrapper
+
+@timer
+
+def calc():
+    print("time calcs")
+
+calc()
