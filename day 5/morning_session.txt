@@ -1,0 +1,168 @@
+Python -
+
+Recursion -
+
+-recursion is the concept of running the function again and again, calling itself going into a nested structure
+
+eg : main-> func_1 -> func_1 -> func_1
+
+-the func_1 called itself 2 more times after main called it.
+-when it comes back up the structure looks like
+
+main <- func_1 <- func_1 <- func_1
+
+---------------------------------------------------------
+
+types of recursion:
+
+1) direct recursion -> the normal recursion that we are used to
+
+2) mutual recusion/indirect recursion -> 2 functions calling each other,
+
+def even(n): #yes_func
+    if n==0:
+        return True
+
+    return odd(n-1)
+
+def odd(n): #no_func
+    if n==0:
+        return False
+
+    return even(n-1)
+
+print(even(10)
+
+3) tail recursion -> the recursion calls at the last statement
+
+def show(n):
+    if n==0:
+        return
+    print(n)
+    show(n-1)
+show(5)
+
+4) head recursion -> the recursion call is above the print statement
+
+def show(n):
+    if n==0:
+        return
+    show(n-1)
+    print(n)
+show(5)
+
+5) Tree Recursion -> each functions makes more than one recursion call.
+
+def fib(n):
+    if n<=1:
+        return n
+    return fib(n-1)+fib(n-2)
+
+print(fib(5))
+
+6) Nested Recursion #hw
+7) Linear Recursion #hw
+8) Binary Recursion #hw
+9) n-array Recursion #hw
+
+-----------------------------------------------------
+
+String Functions -
+
+- simple joined version of a list that is immutable, u cant change values in a list using indexing.
+- ord() gives ascii value of a letter, chr() give character of an int ascii value.
+
+raw data - path takes these types of data
+
+eg : path = r"d:/notes/"
+
+format operators:
+name = "GTG"
+id = 013
+print("%s id %d"%(name,id))
+print(f"i am {name} my id is {id}")
+print("{} {}".format(name,id))
+
+functions : .upper(), .lower(), .swapcase(), .capitalize(), .title(), .casefold()
+
+-----------------------------------------------------
+
+a = "python"
+b = "python"
+print(a is b)
+print(id(a) + " " + id(b))
+
+output is true and the ids are same
+
+---------------------------
+
+force interning method
+
+a = "python"
+b = "".join(["py","thon"])
+
+the 2 variables are the same value but they are stored in different memory, this concept is called force inturning method
+
+---------------------------
+
+Python Translators
+
+table = str.maketrans("","","aeiou")
+print("education".translate(table))
+
+syntax of maketrans==> str.maketrans(_from_,_to_,_delete_)
+
+this creates a rule for translate to work on
+
+----------------------------------------------------------------
+
+File Handling ->
+
+eg:
+f = open("path_to_file","r")
+print(f.read())
+
+there are multiple modes in this r,w,a,r+,w+,a+,x
+
+.write(__Val__) is used to add data to the file
+
+after you write this, your cursor moves to a certain point in the file, after that if you want to print the added data then you need to move the cursor above, which is done using f.seek(0)
+
+-----------------------------------
+
+if you want to make sure that you close the file after opening it without typing f.close() then you need to use
+
+with open("_path_","type") as var_name
+
+------------------------------------
+
+readline(int_val), this is generally used to take a specific mount of letters/lines in the output
+
+------------------------------------
+
+CSV Files -
+
+when you need to work on CSV files, you gotta first import the package into the program
+
+import csv
+
+, then do similar stuff to file handling checkout the test_csv.py and emp.csv to understand better.
+
+-------------------------------------
+
+excel files in python
+
+in order to work on excel files on python, what we need is a package called openpyxl.
+
+from openpyxl import Workbook
+wb = Workbook()
+ws = wb.active()
+
+this creates a sheet.
+
+
+------------------------------------
+
+study binary files and also image opening files.
+
+-----------------------------------
