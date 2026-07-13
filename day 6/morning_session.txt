@@ -1,0 +1,206 @@
+Object Oriented Programming Python -
+
+- When i need a system that is structured and is optimized on Time and Space complexity and needs security, I need to use OOP concept.
+
+- Every class has its own Constructor called default constructor
+
+eg:
+
+class employee:
+    def display(self):
+        print(self.name)
+        print(self.salary)
+emp = employee()
+
+emp.name = "john"
+emp.salary = 50000
+
+emp.display()
+
+-> the emp.name = "john" is like creating a variable for the class employee in the object emp
+
+----------------------------------------------
+
+- predefined variables are given as class variables
+- the ones that are declared during the creation of Obj is called instance variable.
+- when i create a variable to a class using an obj after creating the object then it is called indirect instance variable.
+
+
+---------------------------------------------
+
+Nested Classes -
+
+class outer:
+    class inner :
+        pass
+
+object creation of inner -> obj = outer.inner()
+object creation of outer -> obj = outer()
+
+- you can access the inner class using the outer class like this
+
+class company:
+    def __init__(self) -> None:
+        self.emp = self.employee()
+
+    class employee:
+        def display(self):
+            print("yo")
+
+obj = company()
+
+obj.emp.display()
+
+--------------------------------------------
+
+Data Class  -
+
+- need to import it from dataclasses
+
+from dataclasses import dataclass
+
+- dataclass defines your init,repr and eqr method as the obj is created
+
+-------------------------------------------
+
+Singleton Class -
+
+- this is a class that only has one object
+- it is kind of a design pattern
+- you use __new__() to implement this singleton class
+
+class singleton:
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            print("obj creation")
+            cls._instance = super().__new__(cls)
+        return cls._instance
+obj = Singleton()
+
+- if another obj like obj2 is created, they will have same reference.
+
+------------------------------------------
+
+Enum Class -
+
+- enum class iterates one by one
+
+- you need to import enum
+
+from enum import Enum
+
+eg :
+
+class color(Enum):
+    RED = 1
+    GREEN = 1
+    BLUE = 1
+
+print(color.RED) #color.RED output
+print(color.RED.value) #1 output
+print(color.RED.name) #RED output
+
+------------------------------------------
+
+Frozen Class -
+
+- frozen class is like frozen set, once you set values, they cant be changed.
+
+from dataclasses import dataclass
+@dataclass(frozen = True)
+
+------------------------------------------
+
+factory method -
+
+class dog:
+    def sound(self):
+        print("bark")
+
+class cat:
+    def sound(self):
+        print("meow")
+
+class factory:
+    @staticmethod
+    def create_animal(animal):
+        if animal=="dog":
+            return dog()
+        if animal == "cat":
+            return cat()
+
+-------------------------------------------
+
+proxy method -
+
+- can be used to check permissions of a user to access certain data
+
+class printer:
+    def print_doc(self):
+        print("printing")
+class proxy:
+    def __init__(self):
+        self.printer = printer()
+
+    def print_doc(self):
+        print("perm given")
+        self.printer.print_doc()
+p = proxy()
+
+p.print_doc()
+
+-----------------------------------------
+
+Meta Class -
+- Creates a blueprint to create multiple other classes
+- check the picture in the folder
+
+------------------------------------------
+
+Static Method , Class Method and Instance Method -
+
+------------------------------------------
+
+In python constructor overloading is not possible but it can be achieved by using a trick called default val trick
+
+class stud:
+    def __init__(self,*args):
+        if len(args) == 0:
+            print("no args")
+        elif len(args) == 1:
+            print(args[0])
+        else:
+            print(args)
+
+
+------------------------------------------
+
+Copy constructor -
+
+python doesnt generally support copy constructor but it can be achieved using the copy module
+
+------------------------------------------
+
+Encapsulation -
+
+- hiding unnecesary information and packing the complete program is what we call encapsulation
+
+- we will study about access modifiers in this
+
+------------------------------------------
+
+name mangling method in python
+
+python when given a private variable, it doesnt necessarily store it privately, it changes the name of the variable and doesnt encrypt it
+
+when i store a variable self.__age = 22, it gets stored as _student__age = 22, where student is the class the variable age is in.
+
+------------------------------------------
+
+getter and setter method
+
+- this is the best way to make sure your private variables are encoded and are hidden.
+
+-----------------------------------------
