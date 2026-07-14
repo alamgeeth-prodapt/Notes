@@ -1,0 +1,35 @@
+Design Pattern -
+
+1) Factory Pattern -
+
+- Designing a Generate function that returns the object to the desired class is called the factory class
+- this makes sure that there is only one object on the whole, the lesser the objects the lesser the number of access points the lesser the way to access the data
+- this makes development easier
+
+2) Builder Pattern -
+
+- the development is done step by step, its similar to building an apartment, you cant build 2nd floor without building the ground and first floor
+- the class itself builds itself from the ground up to its peak performance with data
+
+3) Strategy Pattern -
+
+- this is also called as behavioural design pattern
+- Doing something in a clear and designed manner to avoid any mishaps
+- any pipelines that are building for AI and etc comes in here
+
+4) Observer Pattern -
+
+- Immediate Actions come under Observer Pattern
+
+5) Adapted Pattern
+
+- work on adaptability
+
+------------------------------------------------------------------
+
+Generic in python -
+
+- allows writing Reusable Type safe codes
+- sorted() function in python is a generic function, this is because sorted() allows you to sort lists with numbers and strings
+
+-----------------------------------------------------------------
