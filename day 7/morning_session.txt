@@ -1,0 +1,179 @@
+Inheritence  in Python -
+
+1) Single level Inheritence -
+
+- this is a parent child relationship
+- the child class is able to use all the methods defined in the parent class
+
+class parent:
+    def king():
+        print("I am the King")
+class child(parent):
+    def prince():
+        print("I am the prince")
+
+obj = child()
+obj.king()
+obj.prince()
+
+2) Multiple Inheritence -
+
+-this is where a child inherits the methods and variables from multiple parent classes
+
+3) Method Resolution Order -
+
+-the order in which the classes are accessed to get the method
+-.mro() is the method to call it
+
+[<class '__main__.D'>, <class '__main__.B'>, <class '__main__.A'>, <class '__main__.C'>, <class 'object'>]
+
+4) Multi Level -
+
+-its the same parent-child relationship but on multiple levels
+-kind of like accessing data from past generations
+
+A -> B -> C -> D
+
+- D is the current gen and the C is the gen before D, and it goes back further
+
+5) Hybrid Inheritence -
+
+- its combining 2 or more types of inheritence to make a structure
+
+6) method overriding -
+
+- this is where you have same methods defined in 2 classes the child and the parent class but they both differ,
+- when you call the method, the method that is executed is one that is defined the most recent.
+- in order to call the one from the parent you need to use super().method_name()
+- this super() works when the method defined has a parametor self, that makes the method an instance method
+- when the method is a class method you can call it by class_name.method_name()
+
+- this can only be done inside the child method and not in the main function
+
+
+---------------------------------
+
+Polymorphism -
+
+-this is a concept that is used to make generic functions that can be used by multiple classes.
+
+class dog:
+    def speak(self):
+        print("barkie")
+class cat:
+    def speak(self):
+        print("meowie")
+
+def generic(obj_copy):
+    obj_copy.speak()
+
+obj = dog()
+
+generic(obj)
+
+obj = cat()
+
+generic(obj)
+
+- its kind of like lending your object to a function to execute the methods defined inside it
+
+- you can even do it in classes
+
+
+-------------------------------------------------
+
+Operator Overloading -
+
+ class s:
+#     def __init__(self,marks):
+#         self.marks = marks
+
+#     def __add__(self,other):
+#         return self.marks + other.marks
+
+
+# s1 = s(99)
+# s2 = s(99)
+
+# print(s1+s2)
+
+----------------------------------------
+
+Operator Magic Method -
+
+
+----------------------------------------
+
+function polymorphism -
+
+----------------------------------------
+
+Ducking Typing -
+
+----------------------------------------
+
+abstract class -
+
+- its like defining a child class what methods it needs to have in it
+
+from abc import ABC, abstractmethod
+
+class shape(ABC):
+    @abstractmethod
+    def area(self):
+        pass
+
+    def a1(self):
+        print("hello")
+
+class circle(shape):
+    def area(self);
+        print("yo")
+
+c1 = circle()
+c1.a1()
+
+-------------------------------------
+
+Dunder Methods/Magic Methods -
+
+- these are methods defined in classes with __method_name__ syntax
+
+eg : __new__ -> used to make the class to have only one object
+
+     __init__ -> used to create instance variables in a class
+
+     __del__ -> destructor, used to delete the object
+
+     __repr__ -> used to represent the variables in a string
+
+     __str__ -> just a method that is used to print data about the object
+                when i print the obj without defining this, the print returns the obj memory reference, if i did define this then it returns the string inside the method
+
+    __len__ -> precomputation of necessary length in the class
+
+    __lt__, __gt__ -> similar to add but for comparison
+
+    __getitem__ -> this is similar to using len
+
+    __setitem__ -> takes 2 values, index and value, index is for finding the data and value swaps it.
+
+    __contains__ -> this is used to check whether a data is in the data of the class using the "in" concept.
+
+    __iter__ and __next__ -> these 2 are connected in a way such that loops can be built in classes, there is a screenshot i have added for the eg in this file's folder
+
+---------------------------------------------------------
+
+SOLID Principles -
+
+1) Single Responsibility Principle (SRP)
+2) Open Closed Principle (OCP)
+3) Liskov Substitution Principle (LSP)
+4) Interface Segregation Principle (ISP)
+5) Dependency Inversion Principle (DIP)
+
+- SRP -> A class should have/do only one responsibility/job
+- OCP -> Software should be Open for Extension but closed for Modification
+- LSP -> Child Class should Inherit the parent class without breaking the code
+- ISP -> dont force a class to implement a method that it doesnt need
+- DIP -> Higher level classes must not be dependent on the branched classes, it can also be called for methods in a function, no functions must be dependent on calling another function. if it is done then it is called dependency injection.
