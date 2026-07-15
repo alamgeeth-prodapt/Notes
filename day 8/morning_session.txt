@@ -1,0 +1,148 @@
+Exception Handling -
+
+- Exceptions is where we predict the error and make sure that the program doesnt stop but allows the user to re-enter the details or acts as a cushion to help dev check the rest of the code.
+
+try:
+    a = 10/0
+except:
+    print("err")
+print("welcome")
+
+- since 10/0 is an error, i mean you cant divide 10 by 0, the program goes to the except block and prints "err" and goes to the next line and prints welcome.
+
+----------------------------------------------
+
+raise and assert keywords in exception handling -
+
+- raise keyword is used with error names in order to raise the error at any point of time the dev wants
+
+- assert checks the condition and then it raises the necessary error.
+
+def check(a,b):
+    assert b!=0, ZeroDivisionError
+    return a/b
+
+print(check(10,2))
+print(check(10,0))
+
+def check(a,b):
+    if b==0:
+        raise ZeroDivisionError
+    return a/b
+
+print(check(10,2))
+print(check(10,0))
+
+---------------------------------------------------------
+
+Try, catch blocks in python
+
+- try is a block of code that is written to check the code for mistakes by running the code, this will try if it can run the block, if it does then it goes to the next code, else is goes to except or catch to giveout the mistake to the dev.
+
+try:
+    num = int(input("enter : "))
+    print(10/num)
+except ValueError as e:
+    print("e")
+
+- there are many types of errors in python, one of the main things to remember when designing this type of exceptions, add the except Exception at the end of the checks, this generalizes the exception and runs that block.
+
+- when none of the exceptions that youve given is correct and you havent given the general exception block either then python returns the error by itself.
+
+try:
+    num = int(input("enter : "))
+    print(10/num)
+except ValueError as e:
+    print("error", e)
+except ZeroDivisionError as e:
+    print("error",e)
+except Exception as e;
+    print("general error")
+
+----------------------------------------------------------------
+
+for sub error, the exception as e wont tell you what exception it is
+
+---------------------------------------------------------------
+
+nested Try concept -
+
+try:
+    print("outer")
+
+    try:
+        a = []
+        print(a[9])
+    except KeyError:
+        print("err : key")
+
+except Exception as e:
+    print("outer")
+
+else:
+    print("the exception didnt run cuz there was no error but i ran because there was no error")
+
+finally:
+    print("i run all the time buddy, i do logs")
+
+--------------------------------------------------------------------
+
+user defined exception -
+
+- when the exceptions that are defined in python are not enough to replicate the errors that could be produced on project logic, we use this uesr defined exception.
+
+        class AgeError(Exception):
+            def __init__(self,age):
+                self.age = age
+            def __str__(self):
+                return f"age issue : {self.age}"
+
+        age = int(input("enter your age : "))
+
+        try:
+            if age<18:
+                raise AgeError("Age must be greater than 18")
+
+        except AgeError as e:
+            print(e)
+        finally:
+            print("you see??")
+
+- raise is nothing but creating an object and calling the function, whenever the object is called and is asked to describe, the __str__ runs and returns the output.
+
+
+---------------------------------------------------------------------
+
+Exception Chaining -
+
+- this is where you chain the different errors using the "from" keyword
+
+--------------------------------------------------------------------
+types of expressing the exceptions
+1) implicit -> chaining
+2) explicit -> raising directly
+3) suppressed -> chaining but only giving out the child class exception and not spilling out the parent of that child calss
+
+-------------------------------------------------------------------
+
+Logging -
+
+types of logs ->
+1) Debug
+2) information
+3) warning
+4) error
+5) critical
+
+
+import logging -> this is how you import the logging package in python
+
+------------------------------------------------------------------
+
+Traceback -
+
+traceback is the set of lines that you see when you get the error, whenver you write an exception as e and give out a message, you are not going to get any errors but if you really wanted to see the error, you can use traceback to get the error in the output cli
+
+- import traceback -> this is used to import the traceback package into your program
+
+------------------------------------------------------------------
