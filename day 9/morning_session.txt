@@ -1,0 +1,197 @@
+multithreading -
+
+- A task is the highest level of description for multiple processes, a task can have many processes, each process can have multiple threads running on it to finish that process
+
+Task --> process --> Thread1,Thread2
+                                |
+                             Thread3
+
+each thread can have sub threads running on it to finish that thread process
+
+- Global Interpreter Lock -> this is a mutex concept that makes sure that python bytecode is ran in a single thread, it is a standard CPython Implementation.
+
+- this GIL was created for 4 reasons :
+
+1) Memory Management
+2) Reference Counting
+3) Prevents corruption in task and memory
+4) this is why we have Interpreter designs
+
+Disadvantage:
+1) This is the reason python is slow, because it is single threaded.
+------------------------------------------------------------------
+
+What is Multi-tasking,threading,processing -
+
+- python allows multi procesing by dividing the process into different cpu cores, this means, each process has its own thread, own GIL, own interpreter.
+
+- it is executing multiple programs at once.
+
+# from multiprocessing import Process
+# import time
+# import os
+
+# def worker(name):
+#     for i in range(3):
+#         print(name, i)
+#         time.sleep(1)
+#     print(os.getpid())
+
+# if __name__=="__main__":
+#     p = Process(target = worker, args=("proc-1",))
+#     p1 = Process(target= worker, args=("proc-2",))
+#     p.start()
+#     p1.start()
+
+#     p.join()
+#     p1.join()
+
+#     print("main process")
+
+-----------------------------------------------------------------
+
+##
+
+# from multiprocessing import Pool,Process
+# import time
+# import os
+
+# def sqr(num):
+#     print(num,os.getpid())
+#     time.sleep(2)
+#     return num * num
+
+# if __name__ == "__main__":
+#     ls = [x for x in range(100)]
+#     print(ls)
+#     with Pool(5) as pool:
+#         print(pool.map(sqr,ls))
+
+0 3324
+5 10272
+10 2844
+15 17012
+20 10704
+1 3324
+6 10272
+11 2844
+16 17012
+21 10704
+2 3324
+7 10272
+12 2844
+17 17012
+22 10704
+3 3324
+8 10272
+13 2844
+18 17012
+23 10704
+4 3324
+9 10272
+14 2844
+19 17012
+24 10704
+25 3324
+30 10272
+35 2844
+40 17012
+45 10704
+26 3324
+31 10272
+36 2844
+41 17012
+46 10704
+27 3324
+32 10272
+37 2844
+42 17012
+47 10704
+28 3324
+33 10272
+38 2844
+43 17012
+48 10704
+29 3324
+34 10272
+39 2844
+44 17012
+49 10704
+50 3324
+55 10272
+60 2844
+65 17012
+70 10704
+51 3324
+56 10272
+61 2844
+66 17012
+71 10704
+52 3324
+57 10272
+62 2844
+67 17012
+72 10704
+53 3324
+58 10272
+63 2844
+68 17012
+73 10704
+54 3324
+59 10272
+64 2844
+69 17012
+74 10704
+75 3324
+80 10272
+85 2844
+90 17012
+95 10704
+76 3324
+81 10272
+86 2844
+91 17012
+96 10704
+77 3324
+82 10272
+87 2844
+92 17012
+97 10704
+78 3324
+83 10272
+88 2844
+93 17012
+98 10704
+79 3324
+84 10272
+89 2844
+94 17012
+99 10704
+
+[0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289, 324, 361, 400, 441, 484, 529, 576, 625, 676, 729, 784, 841, 900, 961, 1024, 1089, 1156, 1225, 1296, 1369, 1444, 1521, 1600, 1681, 1764, 1849, 1936, 2025, 2116, 2209, 2304, 2401, 2500, 2601, 2704, 2809, 2916, 3025, 3136, 3249, 3364, 3481, 3600, 3721, 3844, 3969, 4096, 4225, 4356, 4489, 4624, 4761, 4900, 5041, 5184, 5329, 5476, 5625, 5776, 5929, 6084, 6241, 6400, 6561, 6724, 6889, 7056, 7225, 7396, 7569, 7744, 7921, 8100, 8281, 8464, 8649, 8836, 9025, 9216, 9409, 9604, 9801]
+##
+
+---------------------------------------------------------------------
+
+from multiprocessing import Process, Queue
+
+def worker(n, q):
+    q.put(n * n)
+
+if __name__ == "__main__":
+
+    q = Queue()
+    processes = []
+
+    for i in range(1, 6):
+        p = Process(target=worker, args=(i, q))
+        processes.append(p)
+        p.start()
+
+    for p in processes:
+        p.join()
+
+    while not q.empty():
+        print(q.get())
+
+--------------------------------------------------------------------
