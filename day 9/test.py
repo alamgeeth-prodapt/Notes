@@ -19,16 +19,23 @@
 
 #     print("main process")
 
-from multiprocessing import Pool,Process
-import time
-import os
+# from multiprocessing import Pool,Process
+# import time
+# import os
 
-def sqr(num):
-    print(num,os.getpid())
-    time.sleep(2)
-    return num * num
+# def sqr(num):
+#     print(num,os.getpid())
+#     time.sleep(2)
+#     return num * num
 
-if __name__ == "__main__":
-    ls = [x for x in range(100)]
-    with Pool(5) as pool:
-        print(pool.map(sqr,ls))
+# if __name__ == "__main__":
+#     ls = [x for x in range(100)]
+#     print(ls)
+#     with Pool(5) as pool:
+#         print(pool.map(sqr,ls))
+
+# call_records = [
+#     {"signal": -95, "latency": 250},
+#     {"signal": -70, "latency": 50},
+#     {"signal": -120, "latency": 500},
+# ]
