@@ -1,0 +1,16 @@
+there is about 30 minutes of class not noted down it is about pytest and parameterizing test cases via @pytest.mark.parameterize("a,b,res",[(__data__)])
+----------------------------------------------------------------
+fixtures -
+
+from calculator import Calculator
+import pytest
+
+@pytest.fixture
+def calc():
+    return Calculator()
+def test_add(calc):
+    assert calc.add(2,4) == 6
+def test_sub(calc):
+    assert calc.sub(2,4) == -2
+
+-----------------------------------------------------------------

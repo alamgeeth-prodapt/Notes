@@ -1,0 +1,67 @@
+Multithreading in Python -
+
+- A thread is a small element present in a process.
+- there may be multiple threads for a single process
+
+- inorder to multi thread, python uses the package threading
+- import threading
+
+            import threading
+
+            def worker():
+                print("thread's doing his job")
+
+            t0 = threading.Thread(target=worker)
+
+            t0.start()
+            t0.join()
+
+-t0.join() is used to make sure that the thread is executed before the main is finished, else main doesnt wait for the thread and just finishes execution before the thread/
+---------------------------------------------------------------
+CPU bound and IO bound processes -
+1) CPU bound doesnt necessarily need any interrupts from the user, it just execs
+2) IO bound requires user interruption to proceed eg : downloading
+---------------------------------------------------------------
+Types of Threads :
+
+1) Daemon Threads -> Background Operations
+2) Non-Daemon Threads -> Normal Operations
+---------------------------------------------------------------
+
+from concurrent.futures import ThreadPoolExecutor
+import threading
+def sqr(x):
+    print(threading.get_ident())
+    return x*x
+
+with ThreadPoolExecutor(max_workers=3) as exec:
+    res = exec.map(sqr,[1,2,3,4,5])
+
+print(list(res))
+
+---------------------------------------------------------------
+
+regular expression in python
+
+- python uses re package for regex and it has many functions .match(), .findall(), .sub().
+
+---------------------------------------------------------------
+
+pytest -
+
+- if a method name starts with test then python will understand that is a testing method and if a files name starts with test then that too is considered as a testing file.
+
+lets start with package -> unittest
+
+            import unittest
+
+            class testcals(unittest.TestCase):
+                def test_add(self):
+                    self.assertEqual(3+3,5)
+
+            if __name__ == "__main__":
+                unittest.main()
+
+----------------------------------------------------------------
+
+assertion methods -> comparing results -> expectation vs reality

@@ -1,0 +1,181 @@
+mysql -
+
+- In order to use mysql via python, what we do is, we need a package called mysql-connector-python
+
+- The following program can be used to connect to mysql
+
+
+        import mysql.connector as msc
+
+        connection = msc.connect(
+            host = "localhost",
+            user ="root",
+            password = "root",
+            port = 3305
+        )
+
+        cursor = connection.cursor()
+        cursor.execute("create database prodapt")
+        print("done......")
+
+        cursor.close()
+        connection.close()
+
+-----------------------------------------------------------
+
+there are 2 ways to enter queries in this
+
+1) creating a variable to execute a command, whenever you do this, the keywords need to be in capital
+
+eg: CREATE TABLE
+
+2) whenever the execution of the query is done directly using cursor.execute("create table prodapt")
+
+- here the concept of entering the keyword in capital is not necessary
+
+-----------------------------------------------------------
+
+q1 = "INSERT INTO emp(id,name) VALUES(%s,%s) "
+values = (101,"GTG")
+cursor.execute(q1,values)
+conn.commit()
+
+----------------------------------------------------------
+
+mysql alchemy -
+
+
+- in order to speed up these processes, anoher orm was built, it is called mysql-alchemy
+
+----------------------------------------------------------
+
+from sqlalchemy import create_enginer, text
+
+engine = create_engine("mysql+pymysql://root:root@localhost:3305/python_ai1,
+isolation_level="AUTOCOMMIT")
+
+with engine.connect() as conn:
+    print("conn success")
+
+----------------------------------------------------------
+
+from sqlalchemy import create_engine, Column, Integer, String, text
+from sqlalchemy.orm import declarative_base
+
+engine = create_engine(
+    "mysql+pymysql://root:root@localhost:3305/python_ai1",
+    isolation_level="AUTOCOMMIT"
+)
+
+Base = declarative_base()
+
+class emp1(Base):
+    __tablename__ = "emp1"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(100), nullable=False)
+    phone = Column(Integer)
+
+Base.metadata.create_all(engine)
+
+print("table done...")
+
+---------------------------------------------------------
+
+- lets insert values using sqlalchemy
+
+from sqlalchemy import create_engine, Column, Integer, String, text
+from sqlalchemy.orm import declarative_base, Session, sessionmaker
+
+engine = create_engine(
+    "mysql+pymysql://root:root@localhost:3305/python_ai1",
+    isolation_level="AUTOCOMMIT"
+)
+
+Base = declarative_base()
+
+class emp1(Base):
+    __tablename__ = "emp1"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(100), nullable=False)
+    phone = Column(Integer)
+
+Base.metadata.create_all(engine)
+
+Session = sessionmaker(bind=engine)
+session = Session()
+
+emp = emp1(name="karthika", phone=12345678)
+session.add(emp)
+session.commit()
+
+Base.metadata.create_all(engine)
+
+print("table done...")
+session.close()
+
+-------------------------------------------------------
+
+- lets do some select operations
+
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import declarative_base, sessionmaker
+
+engine = create_engine(
+    "mysql+pymysql://root:root@localhost:3305/python_ai1"
+)
+
+Base = declarative_base()
+
+class Emp(Base):
+    __tablename__ = "emp1"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(100), nullable=False)
+    phone = Column(Integer)
+
+Base.metadata.create_all(engine)
+
+Session = sessionmaker(bind=engine)
+session = Session()
+
+employees = session.query(Emp).all()
+
+print("ID\tNAME\t\tPHONE")
+print("-" * 35)
+
+for emp in employees:
+    print(emp.id, "\t", emp.name, "\t", emp.phone)
+
+# --------------------------
+# Close Session
+# --------------------------
+session.close()
+
+---------------------------------------------------------------
+
+FastAPI -
+
+structure for GET:
+
+GET /student HTTP/1,1
+Host: localhost:8000
+Authorization: Bearer token12
+Content-Type: application/json
+
+{
+"name":"json"
+}
+
+---------------------------------------------------------------
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def Home():
+    return "hello"
+
+---------------------------------------------------------------
