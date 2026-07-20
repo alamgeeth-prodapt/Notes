@@ -1,11 +1,3 @@
-# from fastapi import FastAPI
-
-# app = FastAPI()
-
-# @app.get("/")
-# def Home():
-#     return {"msg":"hello"}
-
 
 from fastapi import FastAPI
 
@@ -44,3 +36,5 @@ def empdel(emp1:dict):
             break
     return {"info":"emp deleted",
         "data":emp}
+
+----------------------------------------------------------------------
