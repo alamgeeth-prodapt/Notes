@@ -1,0 +1,362 @@
+from pydantic import BaseModel
+
+class Student(BaseModel):
+    address: Address
+    course: list[str]
+    marks: dict[str, int]
+
+
+class Book(BaseModel):
+    title: str
+    author: str
+
+
+class Library(BaseModel):
+    name: str
+    books: list[Book]
+
+
+@app.post("/employee")
+def employee(emp: Employee):
+    return {
+        "Employee": emp
+    }
+
+
+@app.post("/students")
+def student(student: Student, b1: Book):
+    return student
+
+----------------------------------------------------------
+
+from typing import Generic, TypeVar
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+T = TypeVar("T")
+
+
+class Response(BaseModel, Generic[T]):
+    success: bool
+    message: str
+    data: T
+
+
+class Student(BaseModel):
+    id: int
+    name: str
+    age: int
+
+
+@app.get("/student", response_model=Response[Student])
+def get_student():
+    student = Student(
+        id=1,
+        name="Geeth",
+        age=22
+    )
+
+    return Response[Student](
+        success=True,
+        message="Student fetched successfully",
+        data=student
+    )
+
+-------------------------------------------------
+
+from fastapi import FastAPI
+from pydantic import BaseModel, Field, field_validator
+
+app = FastAPI()
+
+class Student(BaseModel):
+    name: str = Field(min_length=3, max_length=30)
+    age: int = Field(gt=18, lt=60)
+    email: str = Field(pattern=r"^[\w.-]+@[\w.-]+\.\w+$")
+
+
+class Student(BaseModel):
+
+    age: int
+
+    @field_validator("age")
+    @classmethod
+    def validate_age(cls, value):
+
+        if value < 18:
+            raise ValueError("Age must be at least 18")
+
+        if value > 60:
+            raise ValueError("Age must be below 60")
+
+        return value
+
+
+@app.post("/students")
+def student(student: Student):
+    return student
+
+-------------------------------------------------------------------
+
+exception handling in this -
+
+from fastapi import FastAPI, HTTPException
+
+app = FastAPI()
+
+student = {
+13: "Geeth"
+}
+
+@app.get("/student/{student_id}")
+def get_stud(student_id:int):
+    if student_id not in student:
+        raise HTTPException{
+            status_code:404
+            details:"not found"
+            }
+
+-----------------------------------------------------------------
+
+Exception Handler -
+
+it catches the exception and converts that into a http response
+
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+
+app = FastAPI()
+
+class InvalidAgeException(Exception):
+    pass
+
+
+@app.exception_handler(InvalidAgeException)
+async def invalid_age_handler(request: Request, exc: InvalidAgeException):
+    return JSONResponse(
+        status_code=400,
+        content={
+            "message": str(exc)
+        }
+    )
+
+
+@app.get("/student/{age}")
+def get_student(age: int):
+    if age < 18:
+        raise InvalidAgeException("Age must be at least 18")
+
+    return {"age": age}
+
+------------------------------------------------------------------
+
+from fastapi import FastAPI, UploadFile, File
+app = FastAPI()
+@app.post("/upload")
+async def upload_file(file: UploadFile = File(...)):
+
+    return {
+        "name": file.filename,
+        "content_type": file.content_type
+    }
+
+-----------------------------------------------------------------
+
+authentication -
+
+authentication is one of the important systems that is used to give permissions to access files in a particular system.
+
+CIAAA -> authentication is one of these 5
+
+from fastapi import FastAPI, Depends, HTTPException
+from fastapi.security import HTTPBasic, HTTPAuthorizationCredentials
+import secrets
+
+from fastapi.security.http import HTTPBasicCredentials
+
+app = FastAPI()
+security = HTTPBasic()
+
+@app.get("/login")
+def login(cred: HTTPBasicCredentials = Depends(security)):
+    username = secrets.compare_digest(
+        cred.username,"admin"
+    )
+
+    password = secrets.compare_digest(
+        cred.password,"admin"
+    )
+
+    if not (username and password):
+        raise HTTPException(401)
+
+    return {
+        "message":"authorised"
+    }
+
+-----------------------------------------------------------------
+
+from fastapi import FastAPI,Security, HTTPException
+from fastapi.security.api_key import APIKeyHeader
+
+app = FastAPI()
+
+api_key_header = APIKeyHeader(name="GTG")
+API_KEY = "secret_key"
+
+@app.get("/secure")
+def secure(api_key: str = Security(api_key_header)):
+    if api_key != API_KEY:
+        raise HTTPException(403)
+
+    return {
+        "message":"Access Granted"
+    }
+
+API KEY CODE SIMPLE
+
+---------------------------------------------------------------
+
+OAUTH SECURITY -
+
+from datetime import datetime, timedelta
+from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from jose import JWTError, jwt
+from passlib.context import CryptContext
+app = FastAPI()
+SECRET_KEY = "mysecretkey123456789"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+pwd_context = CryptContext(
+    schemes=["bcrypt"],
+    deprecated="auto"
+)
+oauth2_scheme = OAuth2PasswordBearer(
+    tokenUrl="token"
+)
+fake_users_db = {
+    "john": {
+        "username": "john",
+        "full_name": "John Smith",
+        "email": "john@test.com",
+        "hashed_password": pwd_context.hash("12345"),
+    }
+}
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(
+        plain_password,
+        hashed_password
+    )
+
+def authenticate_user(username, password):
+
+    user = fake_users_db.get(username)
+
+    if not user:
+        return None
+
+    if not verify_password(
+        password,
+        user["hashed_password"]
+    ):
+        return None
+
+    return user
+def create_access_token(data: dict):
+
+    to_encode = data.copy()
+
+    expire = datetime.utcnow() + timedelta(
+        minutes=ACCESS_TOKEN_EXPIRE_MINUTES
+    )
+
+    to_encode.update(
+        {"exp": expire}
+    )
+
+    return jwt.encode(
+        to_encode,
+        SECRET_KEY,
+        algorithm=ALGORITHM
+    )
+@app.post("/token")
+
+def login(
+    form_data: OAuth2PasswordRequestForm = Depends()
+):
+
+    user = authenticate_user(
+        form_data.username,
+        form_data.password
+    )
+
+    if not user:
+
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid username/password"
+        )
+
+    access_token = create_access_token(
+        data={
+            "sub": user["username"]
+        }
+    )
+
+    return {
+        "access_token": access_token,
+        "token_type": "bearer"
+    }
+
+
+# -----------------------------------------
+# Current User
+# -----------------------------------------
+
+def get_current_user(
+    token: str = Depends(oauth2_scheme)
+):
+
+    credentials_exception = HTTPException(
+        status_code=401,
+        detail="Could not validate credentials"
+    )
+
+    try:
+
+        payload = jwt.decode(
+            token,
+            SECRET_KEY,
+            algorithms=[ALGORITHM]
+        )
+
+        username = payload.get("sub")
+
+        if username is None:
+            raise credentials_exception
+
+    except JWTError:
+        raise credentials_exception
+
+    return fake_users_db.get(username)
+
+
+# -----------------------------------------
+# Protected API
+# -----------------------------------------
+
+@app.get("/profile")
+
+def profile(
+    current_user=Depends(get_current_user)
+):
+
+    return current_user
+
+--------------------------------------------------------------------
+
+API connected with Mysql -
